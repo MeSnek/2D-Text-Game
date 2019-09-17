@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+//new programmer, dont make fun of me if you're reading this. not quite sure what im doing tbh
 namespace text_gamething_v3
 {
     class ExecuteGame : Game
@@ -19,6 +20,8 @@ namespace text_gamething_v3
         {
             PopulateBoard();
         }
+        //fills board with Tiles.Floor objects
+        //todo: make thing to create walls around outside of board
         private void PopulateBoard()
         {
             board = new Tiles[10, 10];
@@ -43,15 +46,18 @@ namespace text_gamething_v3
             }
             SpawnPlayer(5, 5);
         }
+        //creates Tiles.Player at coords of X and Y
         private void SpawnPlayer(int x, int y)
         {
-            board[x, x] = null;
+            board[x, y] = null;
             player = new Tiles.Player(x, y);
             board[x, y] = player;
             DisplayBoard();
         }
+        //clears cmd prompt, then displays each line of board
         private void DisplayBoard()
         {
+            board[1, 1] = new Tiles.Wall(1,1);
             Console.Clear();
             int x = 0;
             int y = 0;
@@ -74,48 +80,48 @@ namespace text_gamething_v3
                 Console.Write(board[x, y].GetTile);
                 x++;
             }
+            Console.WriteLine("Controls: wasd to move, one letter at a time, no capital letters");
             string userInput = Console.ReadLine();
             UserInput(userInput);
         }
+        //takes user input, clears tile that player is on, puts Tile.Floor there, then puts Player into the tile they want to move to.
         //todo: make outside bounds not moveable so no array error
         private void UserInput(string userInput)
         {
-            if (userInput == "w" || userInput == "W")
+            if (userInput == "w" && !board [player.GetXPos, player.GetYPos - 1].GetCollision)
             {
-                board[player.GetXPos, player.GetYPos] = null;
                 board[player.GetXPos, player.GetYPos] = new Tiles.Floor(player.GetXPos, player.GetYPos);
                 player.MoveUp(player.GetXPos, player.GetYPos);
-                board[player.GetXPos, player.GetYPos] = null;
                 board[player.GetXPos, player.GetYPos] = player;
+
                 DisplayBoard();
             }
-            else if (userInput == "a" || userInput == "A")
+            else if (userInput == "a" && !board[player.GetXPos - 1, player.GetYPos].GetCollision)
             {
-                board[player.GetXPos, player.GetYPos] = null;
                 board[player.GetXPos, player.GetYPos] = new Tiles.Floor(player.GetXPos, player.GetYPos);
                 player.MoveLeft(player.GetXPos, player.GetYPos);
-                board[player.GetXPos, player.GetYPos] = null;
                 board[player.GetXPos, player.GetYPos] = player;
+
                 DisplayBoard();
             }
-            else if (userInput == "s" || userInput == "S")
+            else if (userInput == "s" && !board[player.GetXPos, player.GetYPos + 1].GetCollision)
             {
-                board[player.GetXPos, player.GetYPos] = null;
                 board[player.GetXPos, player.GetYPos] = new Tiles.Floor(player.GetXPos, player.GetYPos);
                 player.MoveDown(player.GetXPos, player.GetYPos);
-                board[player.GetXPos, player.GetYPos] = null;
                 board[player.GetXPos, player.GetYPos] = player;
+
                 DisplayBoard();
             }
-            else if (userInput == "d" || userInput == "D")
+            else if (userInput == "d" && !board[player.GetXPos + 1, player.GetYPos].GetCollision)
             {
-                board[player.GetXPos, player.GetYPos] = null;
                 board[player.GetXPos, player.GetYPos] = new Tiles.Floor(player.GetXPos, player.GetYPos);
                 player.MoveRight(player.GetXPos, player.GetYPos);
-                board[player.GetXPos, player.GetYPos] = null;
                 board[player.GetXPos, player.GetYPos] = player;
+
                 DisplayBoard();
             }
+            //gets called if collision is true
+            DisplayBoard();
         }
     }
 }

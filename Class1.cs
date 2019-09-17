@@ -52,6 +52,10 @@ namespace text_gamething_v3
                 //todo: make check for collision, and not do move if collision true
                 public void MoveUp(int x, int y)
                 {
+                    if (GetCollision)
+                    {
+
+                    }
                     yPos = y - 1;
                 }
                 public void MoveDown(int x, int y)
@@ -85,7 +89,7 @@ namespace text_gamething_v3
                 {
                     xPos = x;
                     yPos = y;
-                    tile = "□";
+                    tile = "#";
                     collision = true;
                 }
             }
