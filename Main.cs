@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 //new programmer, dont make fun of me if you're reading this. not quite sure what im doing tbh
 namespace text_gamething_v3
@@ -29,6 +27,8 @@ namespace text_gamething_v3
             int x = 0;
             int y = 0;
 
+            //fills board with floor
+
             for (int i = 0; i < 11; i++)
             {
                 if (x == 10)
@@ -44,8 +44,37 @@ namespace text_gamething_v3
                 board[x, y] = new Tiles.Floor(x, y);
                 x++;
             }
+            x = 0;
+            y = 0;
+            // spawns walls
+            for (int i = 0; i < 10; i++)
+            {
+                board[x, y] = new Tiles.Wall(x, y);
+                x++;
+            }
+            x = 9;
+            y = 9;
+            for (int i = 0; i < 10; i++)
+            {
+                board[x, y] = new Tiles.Wall(x, y);
+                x--;
+            }
+            x = 9;
+            for (int i = 0; i < 10; i++)
+            {
+                board[x, y] = new Tiles.Wall(x, y);
+                y--;
+            }
+            x = 0;
+            y = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                board[x, y] = new Tiles.Wall(x, y);
+                y++;
+            }
             SpawnPlayer(5, 5);
         }
+
         //creates Tiles.Player at coords of X and Y
         private void SpawnPlayer(int x, int y)
         {
@@ -57,7 +86,6 @@ namespace text_gamething_v3
         //clears cmd prompt, then displays each line of board
         private void DisplayBoard()
         {
-            board[1, 1] = new Tiles.Wall(1,1);
             Console.Clear();
             int x = 0;
             int y = 0;
@@ -88,7 +116,7 @@ namespace text_gamething_v3
         //todo: make outside bounds not moveable so no array error
         private void UserInput(string userInput)
         {
-            if (userInput == "w" && !board [player.GetXPos, player.GetYPos - 1].GetCollision)
+            if (userInput == "w" && !board[player.GetXPos, player.GetYPos - 1].GetCollision)
             {
                 board[player.GetXPos, player.GetYPos] = new Tiles.Floor(player.GetXPos, player.GetYPos);
                 player.MoveUp(player.GetXPos, player.GetYPos);
