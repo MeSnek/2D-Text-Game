@@ -1,7 +1,6 @@
 C:\Users\sneak\source\repos\2D Text Game\2D Text Game\bin\Release\2D Text Game.exe.config
 C:\Users\sneak\source\repos\2D Text Game\2D Text Game\bin\Release\2D Text Game.exe
 C:\Users\sneak\source\repos\2D Text Game\2D Text Game\bin\Release\2D Text Game.pdb
-C:\Users\sneak\source\repos\2D Text Game\2D Text Game\obj\Release\2D Text Game.csprojAssemblyReference.cache
 C:\Users\sneak\source\repos\2D Text Game\2D Text Game\obj\Release\2D Text Game.csproj.CoreCompileInputs.cache
 C:\Users\sneak\source\repos\2D Text Game\2D Text Game\obj\Release\2D Text Game.exe
 C:\Users\sneak\source\repos\2D Text Game\2D Text Game\obj\Release\2D Text Game.pdb
