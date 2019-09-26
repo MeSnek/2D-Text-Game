@@ -39,6 +39,10 @@ namespace text_gamething_v3
                     return yPos;
                 }
             }
+            public void OnCollide()
+            {
+
+            }
             public class Player : Tiles
             {
                 public Player(int x, int y)
@@ -48,7 +52,6 @@ namespace text_gamething_v3
                     tile = "@";
                     collision = true;
                 }
-                //todo: make check for collision, and not do move if collision true
                 public void MoveUp(int x, int y)
                 {
                     yPos = y - 1;
@@ -86,6 +89,16 @@ namespace text_gamething_v3
                     yPos = y;
                     tile = "#";
                     collision = true;
+                }
+            }
+            public class Door : Tiles
+            {
+                public Door(int x, int y)
+                {
+                    xPos = x;
+                    yPos = y;
+                    tile = "!";
+                    collision = false;
                 }
             }
         }

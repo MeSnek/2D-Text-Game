@@ -18,8 +18,7 @@ namespace text_gamething_v3
         {
             PopulateBoard();
         }
-        //fills board with Tiles.Floor objects
-        //todo: make thing to create walls around outside of board
+        //fills board with Tiles.Floor objects  
         private void PopulateBoard()
         {
             board = new Tiles[10, 10];
@@ -113,7 +112,7 @@ namespace text_gamething_v3
             UserInput(userInput);
         }
         //takes user input, clears tile that player is on, puts Tile.Floor there, then puts Player into the tile they want to move to.
-        //todo: make outside bounds not moveable so no array error
+//todo make player.moveup and shit take board and do shit to it in the method so we dont have to all this shit
         private void UserInput(string userInput)
         {
             if (userInput == "w" && !board[player.GetXPos, player.GetYPos - 1].GetCollision)
