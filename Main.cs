@@ -112,39 +112,26 @@ namespace text_gamething_v3
             UserInput(userInput);
         }
         //takes user input, clears tile that player is on, puts Tile.Floor there, then puts Player into the tile they want to move to.
-//todo make player.moveup and shit take board and do shit to it in the method so we dont have to all this shit
         private void UserInput(string userInput)
         {
             if (userInput == "w" && !board[player.GetXPos, player.GetYPos - 1].GetCollision)
-            {
-                board[player.GetXPos, player.GetYPos] = new Tiles.Floor(player.GetXPos, player.GetYPos);
-                player.MoveUp(player.GetXPos, player.GetYPos);
-                board[player.GetXPos, player.GetYPos] = player;
-
+            { 
+                player.MoveUp(player.GetXPos, player.GetYPos, board, player);
                 DisplayBoard();
             }
             else if (userInput == "a" && !board[player.GetXPos - 1, player.GetYPos].GetCollision)
             {
-                board[player.GetXPos, player.GetYPos] = new Tiles.Floor(player.GetXPos, player.GetYPos);
-                player.MoveLeft(player.GetXPos, player.GetYPos);
-                board[player.GetXPos, player.GetYPos] = player;
-
+                player.MoveLeft(player.GetXPos, player.GetYPos, board, player);
                 DisplayBoard();
             }
             else if (userInput == "s" && !board[player.GetXPos, player.GetYPos + 1].GetCollision)
             {
-                board[player.GetXPos, player.GetYPos] = new Tiles.Floor(player.GetXPos, player.GetYPos);
-                player.MoveDown(player.GetXPos, player.GetYPos);
-                board[player.GetXPos, player.GetYPos] = player;
-
+                player.MoveDown(player.GetXPos, player.GetYPos, board, player);
                 DisplayBoard();
             }
             else if (userInput == "d" && !board[player.GetXPos + 1, player.GetYPos].GetCollision)
             {
-                board[player.GetXPos, player.GetYPos] = new Tiles.Floor(player.GetXPos, player.GetYPos);
-                player.MoveRight(player.GetXPos, player.GetYPos);
-                board[player.GetXPos, player.GetYPos] = player;
-
+                player.MoveRight(player.GetXPos, player.GetYPos, board, player);
                 DisplayBoard();
             }
             //gets called if collision is true
