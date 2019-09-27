@@ -10,8 +10,8 @@
                 {
                     xPos = x;
                     yPos = y;
-                    tile = "!";
-                    collision = false;
+                    tile = "D";
+                    collisionType = 2;
                 }
             }
         }
