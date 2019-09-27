@@ -11,7 +11,7 @@
                     xPos = x;
                     yPos = y;
                     tile = "#";
-                    collision = true;
+                    collisionType = 1;
                 }
             }
         }

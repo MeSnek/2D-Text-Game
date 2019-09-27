@@ -8,7 +8,12 @@ namespace text_gamething_v3
         {
             int xPos;
             int yPos;
-            bool collision;
+            //Collision types: 
+            //0 = no collision, movement happens
+            //1 = full collision, no movement
+            //2 = door collision, move to a new room
+            //todo: 3 = items or something 
+            int collisionType;
             string tile;
 
             public string GetTile
@@ -18,11 +23,11 @@ namespace text_gamething_v3
                     return tile;
                 }
             }
-            public bool GetCollision
+            public int GetCollisionType
             {
                 get
                 {
-                    return collision;
+                    return collisionType;
                 }
             }
             public int GetXPos

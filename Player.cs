@@ -11,7 +11,6 @@
                     xPos = x;
                     yPos = y;
                     tile = "@";
-                    collision = true;
                 }
                 public void MoveUp(int x, int y, Tiles[, ] board, Player player)
                 {

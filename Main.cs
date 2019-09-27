@@ -13,13 +13,13 @@ namespace text_gamething_v3
             ExecuteGame game = new ExecuteGame();
             game.PlayGame();
         }
-
+        //starts game
         public void PlayGame()
         {
-            PopulateBoard();
+            CreateRoom();
         }
         //fills board with Tiles.Floor objects  
-        private void PopulateBoard()
+        private void CreateRoom()
         {
             board = new Tiles[10, 10];
 
@@ -71,6 +71,40 @@ namespace text_gamething_v3
                 board[x, y] = new Tiles.Wall(x, y);
                 y++;
             }
+            // spawns random doors on edges where walls are
+            Random random = new Random();
+            int initialRandom = random.Next(1, 4);
+
+            int randomNumber1 = random.Next(3, 7);
+            int randomNumber2 = random.Next(3, 7);
+            int randomNumber3 = random.Next(3, 7);
+            int randomNumber4 = random.Next(3, 7);
+
+            switch (initialRandom)
+            {
+                case 1:
+                    board[0, randomNumber1] = new Tiles.Door(0, randomNumber1);
+                    break;
+
+                case 2:
+                    board[0, randomNumber1] = new Tiles.Door(0, randomNumber1);
+                    board[9, randomNumber2] = new Tiles.Door(9, randomNumber2);
+                    break;
+
+                case 3:
+                    board[0, randomNumber1] = new Tiles.Door(0, randomNumber1);
+                    board[9, randomNumber2] = new Tiles.Door(9, randomNumber2);
+                    board[randomNumber3, 0] = new Tiles.Door(randomNumber3, 0);
+                    break;
+
+                case 4:
+                    board[0, randomNumber1] = new Tiles.Door(0, randomNumber1);
+                    board[9, randomNumber2] = new Tiles.Door(9, randomNumber2);
+                    board[randomNumber3, 0] = new Tiles.Door(randomNumber3, 0);
+                    board[randomNumber3, 9] = new Tiles.Door(randomNumber3, 9);
+                    break;
+            }
+            //spawns player
             SpawnPlayer(5, 5);
         }
 
@@ -107,35 +141,78 @@ namespace text_gamething_v3
                 Console.Write(board[x, y].GetTile);
                 x++;
             }
-            Console.WriteLine("Controls: wasd to move, one letter at a time, no capital letters");
+            Console.WriteLine("Controls: wasd to move, one letter at a time");
             string userInput = Console.ReadLine();
             UserInput(userInput);
         }
         //takes user input, clears tile that player is on, puts Tile.Floor there, then puts Player into the tile they want to move to.
         private void UserInput(string userInput)
         {
-            if (userInput == "w" && !board[player.GetXPos, player.GetYPos - 1].GetCollision)
-            { 
-                player.MoveUp(player.GetXPos, player.GetYPos, board, player);
-                DisplayBoard();
-            }
-            else if (userInput == "a" && !board[player.GetXPos - 1, player.GetYPos].GetCollision)
+            if (userInput == "w" || userInput == "W")
             {
-                player.MoveLeft(player.GetXPos, player.GetYPos, board, player);
-                DisplayBoard();
+                //switch to decide what to do when colliding with objects. Collision types in Tiles.cs
+                switch (board [player.GetXPos, player.GetYPos - 1].GetCollisionType)
+                {
+                    case 0:
+                        player.MoveUp(player.GetXPos, player.GetYPos, board, player);
+                        DisplayBoard();
+                        break;
+                    case 1:
+                        DisplayBoard();
+                        break;
+                    case 2:
+
+                        break;
+                }
             }
-            else if (userInput == "s" && !board[player.GetXPos, player.GetYPos + 1].GetCollision)
+            else if (userInput == "a" || userInput == "A")
             {
-                player.MoveDown(player.GetXPos, player.GetYPos, board, player);
-                DisplayBoard();
+                switch (board [player.GetXPos - 1, player.GetYPos].GetCollisionType)
+                {
+                    case 0:
+                        player.MoveLeft(player.GetXPos, player.GetYPos, board, player);
+                        DisplayBoard();
+                        break;
+                    case 1:
+                        DisplayBoard();
+                        break;
+                    case 2:
+
+                        break;
+                }
             }
-            else if (userInput == "d" && !board[player.GetXPos + 1, player.GetYPos].GetCollision)
+            else if (userInput == "s" || userInput == "S")
             {
-                player.MoveRight(player.GetXPos, player.GetYPos, board, player);
-                DisplayBoard();
+                switch (board[player.GetXPos, player.GetYPos + 1].GetCollisionType)
+                {
+                    case 0:
+                        player.MoveDown(player.GetXPos, player.GetYPos, board, player);
+                        DisplayBoard();
+                        break;
+                    case 1:
+                        DisplayBoard();
+                        break;
+                    case 2:
+
+                        break;
+                }
             }
-            //gets called if collision is true
-            DisplayBoard();
+            else if (userInput == "d" || userInput == "D")
+            {
+                switch (board[player.GetXPos + 1, player.GetYPos].GetCollisionType)
+                {
+                    case 0:
+                        player.MoveRight(player.GetXPos, player.GetYPos, board, player);
+                        DisplayBoard();
+                        break;
+                    case 1:
+                        DisplayBoard();
+                        break;
+                    case 2:
+
+                        break;
+                }
+            }
         }
     }
 }
