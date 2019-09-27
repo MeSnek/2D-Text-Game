@@ -16,10 +16,10 @@ namespace text_gamething_v3
         //starts game
         public void PlayGame()
         {
-            CreateRoom();
+            CreateRoom(5, 5);
         }
         //fills board with Tiles.Floor objects  
-        private void CreateRoom()
+        private void CreateRoom(int playerSpawnX, int playerSpawnY)
         {
             board = new Tiles[10, 10];
 
@@ -73,7 +73,8 @@ namespace text_gamething_v3
             }
             // spawns random doors on edges where walls are
             Random random = new Random();
-            int initialRandom = random.Next(1, 4);
+            int initialRandom = 4;
+            //int initialRandom = random.Next(1, 4);
 
             int randomNumber1 = random.Next(3, 7);
             int randomNumber2 = random.Next(3, 7);
@@ -101,11 +102,11 @@ namespace text_gamething_v3
                     board[0, randomNumber1] = new Tiles.Door(0, randomNumber1);
                     board[9, randomNumber2] = new Tiles.Door(9, randomNumber2);
                     board[randomNumber3, 0] = new Tiles.Door(randomNumber3, 0);
-                    board[randomNumber3, 9] = new Tiles.Door(randomNumber3, 9);
+                    board[randomNumber4, 9] = new Tiles.Door(randomNumber4, 9);
                     break;
             }
             //spawns player
-            SpawnPlayer(5, 5);
+            SpawnPlayer(playerSpawnX, playerSpawnY);
         }
 
         //creates Tiles.Player at coords of X and Y
@@ -114,10 +115,10 @@ namespace text_gamething_v3
             board[x, y] = null;
             player = new Tiles.Player(x, y);
             board[x, y] = player;
-            DisplayBoard();
+            DisplayRoom();
         }
         //clears cmd prompt, then displays each line of board
-        private void DisplayBoard()
+        private void DisplayRoom()
         {
             Console.Clear();
             int x = 0;
@@ -155,13 +156,15 @@ namespace text_gamething_v3
                 {
                     case 0:
                         player.MoveUp(player.GetXPos, player.GetYPos, board, player);
-                        DisplayBoard();
+                        DisplayRoom();
                         break;
                     case 1:
-                        DisplayBoard();
+                        DisplayRoom();
                         break;
                     case 2:
-
+                        int playerX = player.GetXPos;
+                        int playerY = 8;
+                        CreateRoom(playerX, playerY);
                         break;
                 }
             }
@@ -171,13 +174,15 @@ namespace text_gamething_v3
                 {
                     case 0:
                         player.MoveLeft(player.GetXPos, player.GetYPos, board, player);
-                        DisplayBoard();
+                        DisplayRoom();
                         break;
                     case 1:
-                        DisplayBoard();
+                        DisplayRoom();
                         break;
                     case 2:
-
+                        int playerX = 8;
+                        int playerY = player.GetYPos;
+                        CreateRoom(playerX, playerY);
                         break;
                 }
             }
@@ -187,13 +192,15 @@ namespace text_gamething_v3
                 {
                     case 0:
                         player.MoveDown(player.GetXPos, player.GetYPos, board, player);
-                        DisplayBoard();
+                        DisplayRoom();
                         break;
                     case 1:
-                        DisplayBoard();
+                        DisplayRoom();
                         break;
                     case 2:
-
+                        int playerX = player.GetXPos;
+                        int playerY = 1;
+                        CreateRoom(playerX, playerY);
                         break;
                 }
             }
@@ -203,13 +210,15 @@ namespace text_gamething_v3
                 {
                     case 0:
                         player.MoveRight(player.GetXPos, player.GetYPos, board, player);
-                        DisplayBoard();
+                        DisplayRoom();
                         break;
                     case 1:
-                        DisplayBoard();
+                        DisplayRoom();
                         break;
                     case 2:
-
+                        int playerX = 1;
+                        int playerY = player.GetYPos;
+                        CreateRoom(playerX, playerY);
                         break;
                 }
             }
