@@ -8,7 +8,7 @@ namespace text_gamething_v3
         public Tiles.Player player;
         public Tiles[,] board;
 
-        private static void Main(String[] args)
+        private static void Main()
         {
             ExecuteGame game = new ExecuteGame();
             game.PlayGame();
@@ -81,6 +81,7 @@ namespace text_gamething_v3
             int randomNumber3 = random.Next(3, 7);
             int randomNumber4 = random.Next(3, 7);
 
+            // 
             switch (initialRandom)
             {
                 case 1:
@@ -142,14 +143,15 @@ namespace text_gamething_v3
                 Console.Write(board[x, y].GetTile);
                 x++;
             }
-            Console.WriteLine("Controls: wasd to move, one letter at a time");
-            string userInput = Console.ReadLine();
-            UserInput(userInput);
+            Console.WriteLine("Controls: wasd to move");
+            UserInput();
         }
         //takes user input, clears tile that player is on, puts Tile.Floor there, then puts Player into the tile they want to move to.
-        private void UserInput(string userInput)
+        private void UserInput()
         {
-            if (userInput == "w" || userInput == "W")
+            var userInput = Console.ReadKey();
+
+            if (userInput.Key == ConsoleKey.W)
             {
                 //switch to decide what to do when colliding with objects. Collision types in Tiles.cs
                 switch (board [player.GetXPos, player.GetYPos - 1].GetCollisionType)
@@ -168,7 +170,7 @@ namespace text_gamething_v3
                         break;
                 }
             }
-            else if (userInput == "a" || userInput == "A")
+            else if (userInput.Key == ConsoleKey.A)
             {
                 switch (board [player.GetXPos - 1, player.GetYPos].GetCollisionType)
                 {
@@ -186,7 +188,7 @@ namespace text_gamething_v3
                         break;
                 }
             }
-            else if (userInput == "s" || userInput == "S")
+            else if (userInput.Key == ConsoleKey.S)
             {
                 switch (board[player.GetXPos, player.GetYPos + 1].GetCollisionType)
                 {
@@ -204,7 +206,7 @@ namespace text_gamething_v3
                         break;
                 }
             }
-            else if (userInput == "d" || userInput == "D")
+            else if (userInput.Key == ConsoleKey.D)
             {
                 switch (board[player.GetXPos + 1, player.GetYPos].GetCollisionType)
                 {
