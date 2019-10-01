@@ -7,6 +7,7 @@ namespace text_gamething_v3
     {
         public Tiles.Player player;
         public Tiles[,] board;
+        public Tiles.Enemy enemy;
 
         private static void Main()
         {
@@ -106,8 +107,11 @@ namespace text_gamething_v3
                     board[randomNumber4, 9] = new Tiles.Door(randomNumber4, 9);
                     break;
             }
+            enemy = new Tiles.Enemy(2, 2);
+            board[2, 2] = enemy;
             //spawns player
             SpawnPlayer(playerSpawnX, playerSpawnY);
+            
         }
 
         //creates Tiles.Player at coords of X and Y
@@ -150,6 +154,7 @@ namespace text_gamething_v3
         private void UserInput()
         {
             var userInput = Console.ReadKey();
+            enemy.FindPlayer(board, player, enemy);
 
             if (userInput.Key == ConsoleKey.W)
             {
@@ -160,9 +165,11 @@ namespace text_gamething_v3
                         player.MoveUp(player.GetXPos, player.GetYPos, board, player);
                         DisplayRoom();
                         break;
+
                     case 1:
                         DisplayRoom();
                         break;
+
                     case 2:
                         int playerX = player.GetXPos;
                         int playerY = 8;
@@ -178,9 +185,11 @@ namespace text_gamething_v3
                         player.MoveLeft(player.GetXPos, player.GetYPos, board, player);
                         DisplayRoom();
                         break;
+
                     case 1:
                         DisplayRoom();
                         break;
+
                     case 2:
                         int playerX = 8;
                         int playerY = player.GetYPos;
@@ -196,9 +205,11 @@ namespace text_gamething_v3
                         player.MoveDown(player.GetXPos, player.GetYPos, board, player);
                         DisplayRoom();
                         break;
+
                     case 1:
                         DisplayRoom();
                         break;
+
                     case 2:
                         int playerX = player.GetXPos;
                         int playerY = 1;
@@ -214,9 +225,11 @@ namespace text_gamething_v3
                         player.MoveRight(player.GetXPos, player.GetYPos, board, player);
                         DisplayRoom();
                         break;
+
                     case 1:
                         DisplayRoom();
                         break;
+
                     case 2:
                         int playerX = 1;
                         int playerY = player.GetYPos;

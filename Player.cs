@@ -17,7 +17,6 @@
                     board[player.GetXPos, player.GetYPos] = new Tiles.Floor(player.GetXPos, player.GetYPos);
                     yPos = y - 1;
                     board[player.GetXPos, player.GetYPos] = player;
-                    
                 }
                 public void MoveDown(int x, int y, Tiles[,] board, Player player)
                 {
