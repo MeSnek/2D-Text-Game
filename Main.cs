@@ -8,7 +8,6 @@ namespace text_gamething_v3
         public Tiles.Player player;
         public Tiles[,] board;
         public Tiles.Enemy enemy;
-
         private static void Main()
         {
             ExecuteGame game = new ExecuteGame();
@@ -19,11 +18,22 @@ namespace text_gamething_v3
         {
             CreateRoom(5, 5);
         }
-        //fills board with Tiles.Floor objects  
-        private void CreateRoom(int playerSpawnX, int playerSpawnY)
+        private void CreateRoom(int playerX, int playerY)
         {
             board = new Tiles[10, 10];
 
+            SpawnFloor();
+            SpawnWalls();
+            SpawnDoors();
+            SpawnPlayer(playerX, playerY);
+            SpawnEnemy(2, 2);
+
+            DisplayRoom();
+
+        }
+        //creates the floor
+        private void SpawnFloor()
+        {
             int x = 0;
             int y = 0;
 
@@ -44,34 +54,10 @@ namespace text_gamething_v3
                 board[x, y] = new Tiles.Floor(x, y);
                 x++;
             }
-            x = 0;
-            y = 0;
-            // spawns walls
-            for (int i = 0; i < 10; i++)
-            {
-                board[x, y] = new Tiles.Wall(x, y);
-                x++;
-            }
-            x = 9;
-            y = 9;
-            for (int i = 0; i < 10; i++)
-            {
-                board[x, y] = new Tiles.Wall(x, y);
-                x--;
-            }
-            x = 9;
-            for (int i = 0; i < 10; i++)
-            {
-                board[x, y] = new Tiles.Wall(x, y);
-                y--;
-            }
-            x = 0;
-            y = 0;
-            for (int i = 0; i < 10; i++)
-            {
-                board[x, y] = new Tiles.Wall(x, y);
-                y++;
-            }
+        }
+        //creates random number of doors on 4 walls
+        private void SpawnDoors()
+        {
             // spawns random doors on edges where walls are
             Random random = new Random();
             int initialRandom = 4;
@@ -107,20 +93,53 @@ namespace text_gamething_v3
                     board[randomNumber4, 9] = new Tiles.Door(randomNumber4, 9);
                     break;
             }
-            enemy = new Tiles.Enemy(2, 2);
-            board[2, 2] = enemy;
-            //spawns player
-            SpawnPlayer(playerSpawnX, playerSpawnY);
-            
+        }
+        //creates walls at perimeter
+        private void SpawnWalls()
+        {
+            int x = 0;
+            int y = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                board[x, y] = new Tiles.Wall(x, y);
+                x++;
+            }
+            x = 9;
+            y = 9;
+            for (int i = 0; i < 10; i++)
+            {
+                board[x, y] = new Tiles.Wall(x, y);
+                x--;
+            }
+            x = 9;
+            for (int i = 0; i < 10; i++)
+            {
+                board[x, y] = new Tiles.Wall(x, y);
+                y--;
+            }
+            x = 0;
+            y = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                board[x, y] = new Tiles.Wall(x, y);
+                y++;
+            }
         }
 
-        //creates Tiles.Player at coords of X and Y
+        //creates Tiles.Player  X and Y
         private void SpawnPlayer(int x, int y)
         {
             board[x, y] = null;
             player = new Tiles.Player(x, y);
             board[x, y] = player;
-            DisplayRoom();
+        }
+        
+        //creates Tiles.Enemy at x,y
+        private void SpawnEnemy(int x, int y)
+        {
+            board[x, y] = null;
+            enemy = new Tiles.Enemy(x, y);
+            board[x, y] = enemy;
         }
         //clears cmd prompt, then displays each line of board
         private void DisplayRoom()
@@ -236,6 +255,10 @@ namespace text_gamething_v3
                         CreateRoom(playerX, playerY);
                         break;
                 }
+            }
+            else if (userInput.Key == ConsoleKey.Z)
+            {
+                player.SwingSword(board, player);
             }
         }
     }
